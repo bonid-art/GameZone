@@ -348,6 +348,14 @@ body {
     margin-bottom: 15px;
 }
 
+.top-score-display {
+    font-size: 28px !important;
+    font-weight: 700;
+    color: #39FF14;
+    text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+    margin: 20px 0;
+}
+
 #start-btn,
 #restart-btn {
     padding: 15px 50px;

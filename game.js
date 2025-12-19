@@ -35,7 +35,6 @@ const gameOverOverlay = document.getElementById('game-over-overlay');
 const startBtn = document.getElementById('start-btn');
 const restartBtn = document.getElementById('restart-btn');
 const timerDisplay = document.getElementById('game-timer');
-const finalScoreDisplay = document.getElementById('final-score');
 const bestScoreDisplay = document.getElementById('best-score');
 
 // Sound Engine
@@ -206,7 +205,6 @@ function endGame() {
         currentGridIndex = -1;
     }
 
-    finalScoreDisplay.innerText = score.toString().padStart(2, '0');
     bestScoreDisplay.innerText = highScore.toString().padStart(2, '0');
     gameOverOverlay.classList.remove('hidden');
 }
