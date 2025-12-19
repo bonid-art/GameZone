@@ -58,48 +58,49 @@ function playSound(type) {
         oscillator.start(now);
         oscillator.stop(now + 0.2);
     } else if (type === 'error') {
-        // Water Splash Sound Synthesis
-        const bufferSize = audioCtx.sampleRate * 0.4;
-        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const data = buffer.getChannelData(0);
+        // Synthesized "Mexican Meo Meo" (Rhythmic funny cat sounds)
+        const playMeo = (startTime, baseFreq) => {
+            const osc = audioCtx.createOscillator();
+            const osc2 = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
 
-        // Generate White Noise
-        for (let i = 0; i < bufferSize; i++) {
-            data[i] = Math.random() * 2 - 1;
-        }
+            osc.type = 'triangle';
+            osc2.type = 'sawtooth'; // Add some "rasp" to the meow
 
-        const noiseSource = audioCtx.createBufferSource();
-        noiseSource.buffer = buffer;
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.Q.value = 5;
 
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(1200, now);
-        filter.frequency.exponentialRampToValueAtTime(400, now + 0.3);
+            osc.connect(filter);
+            osc2.connect(filter);
+            filter.connect(g);
+            g.connect(audioCtx.destination);
 
-        noiseSource.connect(filter);
-        filter.connect(gainNode);
+            // Meow pitch slide: M-E-O-W
+            osc.frequency.setValueAtTime(baseFreq, startTime);
+            osc.frequency.exponentialRampToValueAtTime(baseFreq * 2, startTime + 0.1);
+            osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.2, startTime + 0.3);
 
-        gainNode.gain.setValueAtTime(0, now);
-        gainNode.gain.linearRampToValueAtTime(0.2, now + 0.05);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+            osc2.frequency.setValueAtTime(baseFreq * 1.01, startTime);
+            osc2.frequency.exponentialRampToValueAtTime(baseFreq * 2.01, startTime + 0.1);
 
-        noiseSource.start(now);
-        noiseSource.stop(now + 0.4);
+            filter.frequency.setValueAtTime(baseFreq * 2, startTime);
+            filter.frequency.exponentialRampToValueAtTime(baseFreq * 4, startTime + 0.1);
 
-        // Also add a low "thump" for the splash impact
-        const thump = audioCtx.createOscillator();
-        thump.type = 'sine';
-        thump.frequency.setValueAtTime(150, now);
-        thump.frequency.exponentialRampToValueAtTime(60, now + 0.1);
+            g.gain.setValueAtTime(0, startTime);
+            g.gain.linearRampToValueAtTime(0.1, startTime + 0.05);
+            g.gain.exponentialRampToValueAtTime(0.01, startTime + 0.3);
 
-        const thumpGain = audioCtx.createGain();
-        thumpGain.gain.setValueAtTime(0.1, now);
-        thumpGain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+            osc.start(startTime);
+            osc2.start(startTime);
+            osc.stop(startTime + 0.3);
+            osc2.stop(startTime + 0.3);
+        };
 
-        thump.connect(thumpGain);
-        thumpGain.connect(audioCtx.destination);
-        thump.start(now);
-        thump.stop(now + 0.2);
+        // Play the rhythmic "Meo Meo" pattern
+        playMeo(now, 400);        // Meo
+        playMeo(now + 0.2, 450);   // Meo
+        playMeo(now + 0.4, 500);   // MEO!
     } else {
         // Pop sound for btn clicks
         oscillator.type = 'sine';
