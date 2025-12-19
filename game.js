@@ -28,6 +28,7 @@ let autoJumpInterval = null;
 const gridCells = document.querySelectorAll('.grid-cell');
 const scoreDisplay = document.getElementById('score-value');
 const highScoreDisplay = document.getElementById('high-score-value');
+const messageArea = document.getElementById('game-message');
 const controlBtns = document.querySelectorAll('.icon-btn');
 const startOverlay = document.getElementById('start-overlay');
 const gameOverOverlay = document.getElementById('game-over-overlay');
