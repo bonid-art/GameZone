@@ -82,15 +82,26 @@ body {
     font-weight: 600;
 }
 
+.scores-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
 .score-container {
-    align-self: flex-end;
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
-    padding: 10px 20px;
+    padding: 8px 15px;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     text-align: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    min-width: 80px;
+}
+
+.score-container.high-score {
+    background: rgba(255, 215, 0, 0.2);
+    border-color: rgba(255, 215, 0, 0.3);
 }
 
 .score-label {

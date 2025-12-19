@@ -16,6 +16,7 @@ const colors = {
 
 // State
 let score = 0;
+let highScore = 0;
 let currentTarget = null;
 let currentGridIndex = -1;
 let gameActive = true;
@@ -23,6 +24,7 @@ let gameActive = true;
 // DOM Elements
 const gridCells = document.querySelectorAll('.grid-cell');
 const scoreDisplay = document.getElementById('score-value');
+const highScoreDisplay = document.getElementById('high-score-value');
 const messageArea = document.getElementById('game-message');
 const controlBtns = document.querySelectorAll('.icon-btn');
 const startOverlay = document.getElementById('start-overlay');
@@ -107,6 +109,9 @@ function handleIconClick(type) {
     if (type === currentTarget) {
         // Success
         score += 1;
+        if (score > highScore) {
+            highScore = score;
+        }
         playSound('success');
         messageArea.innerText = "Great Job! 🌟";
         messageArea.style.color = "#39FF14";
@@ -117,10 +122,10 @@ function handleIconClick(type) {
         // Move icon immediately on match
         updateTarget();
     } else {
-        // Failure
-        score = Math.max(0, score - 1);
+        // Failure - RESET SCORE TO ZERO
+        score = 0;
         playSound('error');
-        messageArea.innerText = "Try Again! 🌈";
+        messageArea.innerText = "Oops! Reset! 🌈";
         messageArea.style.color = "#FF1493";
 
         document.querySelector('.iphone-16-frame').classList.add('shake');
@@ -132,6 +137,7 @@ function handleIconClick(type) {
 
 function updateScore() {
     scoreDisplay.innerText = score.toString().padStart(2, '0');
+    highScoreDisplay.innerText = highScore.toString().padStart(2, '0');
 }
 
 // Event Listeners
