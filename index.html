@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Icon Match - Kids Adventure</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="iphone-16-frame">
+        <div class="dynamic-island"></div>
+
+        <div class="game-container">
+            <!-- Start Overlay -->
+            <div id="start-overlay" class="overlay">
+                <div class="overlay-content">
+                    <h1>Icon Match</h1>
+                    <p>Tap to Play!</p>
+                    <button id="start-btn">GO!</button>
+                </div>
+            </div>
+
+            <!-- Header with Score -->
+            <header class="game-header">
+                <div class="status-bar">
+                    <span class="time">9:41</span>
+                    <div class="status-icons">
+                        <span class="icon-signal">📶</span>
+                        <span class="icon-wifi">📶</span>
+                        <span class="icon-battery">🔋</span>
+                    </div>
+                </div>
+                <div class="score-container">
+                    <span class="score-label">SCORE</span>
+                    <span id="score-value" class="score-num">00</span>
+                </div>
+            </header>
+
+            <main class="game-world">
+                <!-- Target Display Grid -->
+                <div class="grid-container" id="game-grid">
+                    <!-- 3x3 Grid Cells -->
+                    <div class="grid-cell" data-index="0"></div>
+                    <div class="grid-cell" data-index="1"></div>
+                    <div class="grid-cell" data-index="2"></div>
+                    <div class="grid-cell" data-index="3"></div>
+                    <div class="grid-cell" data-index="4"></div>
+                    <div class="grid-cell" data-index="5"></div>
+                    <div class="grid-cell" data-index="6"></div>
+                    <div class="grid-cell" data-index="7"></div>
+                    <div class="grid-cell" data-index="8"></div>
+                </div>
+
+                <div class="message-area" id="game-message">
+                    Watch the grid!
+                </div>
+            </main>
+
+            <!-- Bottom Controls -->
+            <footer class="game-controls">
+                <div class="control-grid">
+                    <button class="icon-btn star" data-type="star">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg>
+                    </button>
+                    <button class="icon-btn triangle" data-type="triangle">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M1 21h22L12 2 1 21z" />
+                        </svg>
+                    </button>
+                    <button class="icon-btn pentagon" data-type="pentagon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.5l8.5 6.2-3.2 10.3H6.7L3.5 8.7 12 2.5z" />
+                        </svg>
+                    </button>
+                    <button class="icon-btn heart" data-type="heart">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="home-indicator"></div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Audio Elements (Will be synthesized/played via JS) -->
+    <script src="game.js"></script>
+</body>
+
+</html>
