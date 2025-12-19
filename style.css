@@ -304,6 +304,33 @@ body {
     color: white;
 }
 
+.icon-pop {
+    font-size: 80px;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+#game-timer {
+    background: rgba(255, 0, 0, 0.4);
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 18px;
+    min-width: 60px;
+    text-align: center;
+}
+
 .overlay h1 {
     font-size: 48px;
     margin-bottom: 10px;
@@ -313,10 +340,11 @@ body {
 
 .overlay p {
     font-size: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
-#start-btn {
+#start-btn,
+#restart-btn {
     padding: 15px 50px;
     font-size: 24px;
     font-weight: 700;
@@ -327,11 +355,22 @@ body {
     cursor: pointer;
     box-shadow: 0 10px 0 #28cc10;
     transition: all 0.1s;
+    margin-top: 20px;
 }
 
-#start-btn:active {
+#start-btn:active,
+#restart-btn:active {
     transform: translateY(5px);
     box-shadow: 0 5px 0 #28cc10;
+}
+
+#restart-btn {
+    background: #00D2FF;
+    box-shadow: 0 10px 0 #0099bb;
+}
+
+#restart-btn:active {
+    box-shadow: 0 5px 0 #0099bb;
 }
 
 .hidden {

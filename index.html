@@ -20,16 +20,28 @@
             <!-- Start Overlay -->
             <div id="start-overlay" class="overlay">
                 <div class="overlay-content">
-                    <h1>Icon Match</h1>
-                    <p>Tap to Play!</p>
+                    <div class="icon-pop">🚀</div>
+                    <h1>Ready?</h1>
+                    <p>Tap to start your 30s challenge!</p>
                     <button id="start-btn">GO!</button>
+                </div>
+            </div>
+
+            <!-- Game Over Overlay -->
+            <div id="game-over-overlay" class="overlay hidden">
+                <div class="overlay-content">
+                    <div class="icon-pop">⌛</div>
+                    <h1>Time's Up!</h1>
+                    <p>Final Score: <span id="final-score">0</span></p>
+                    <p>Best Score: <span id="best-score">0</span></p>
+                    <button id="restart-btn">Play Again</button>
                 </div>
             </div>
 
             <!-- Header with Score -->
             <header class="game-header">
                 <div class="status-bar">
-                    <span class="time">9:41</span>
+                    <span class="time" id="game-timer">30s</span>
                     <div class="status-icons">
                         <span class="icon-signal">📶</span>
                         <span class="icon-wifi">📶</span>

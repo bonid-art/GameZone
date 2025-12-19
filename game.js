@@ -17,18 +17,25 @@ const colors = {
 // State
 let score = 0;
 let highScore = 0;
+let timeLeft = 30;
 let currentTarget = null;
 let currentGridIndex = -1;
-let gameActive = true;
+let gameActive = false;
+let timerInterval = null;
+let autoJumpInterval = null;
 
 // DOM Elements
 const gridCells = document.querySelectorAll('.grid-cell');
 const scoreDisplay = document.getElementById('score-value');
 const highScoreDisplay = document.getElementById('high-score-value');
-const messageArea = document.getElementById('game-message');
 const controlBtns = document.querySelectorAll('.icon-btn');
 const startOverlay = document.getElementById('start-overlay');
+const gameOverOverlay = document.getElementById('game-over-overlay');
 const startBtn = document.getElementById('start-btn');
+const restartBtn = document.getElementById('restart-btn');
+const timerDisplay = document.getElementById('game-timer');
+const finalScoreDisplay = document.getElementById('final-score');
+const bestScoreDisplay = document.getElementById('best-score');
 
 // Sound Engine
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -140,6 +147,60 @@ function updateScore() {
     highScoreDisplay.innerText = highScore.toString().padStart(2, '0');
 }
 
+function startTimer() {
+    timeLeft = 30;
+    timerDisplay.innerText = `${timeLeft}s`;
+
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        timerDisplay.innerText = `${timeLeft}s`;
+
+        if (timeLeft <= 0) {
+            endGame();
+        }
+    }, 1000);
+}
+
+function startGame() {
+    gameActive = true;
+    score = 0;
+    updateScore();
+    startOverlay.classList.add('hidden');
+    gameOverOverlay.classList.add('hidden');
+
+    messageArea.innerText = "Game Started! 🚀";
+    messageArea.style.color = "white";
+
+    updateTarget();
+    startTimer();
+
+    autoJumpInterval = setInterval(() => {
+        updateTarget();
+    }, 2500);
+}
+
+function endGame() {
+    gameActive = false;
+    clearInterval(timerInterval);
+    clearInterval(autoJumpInterval);
+
+    // Play end sound
+    playSound('error');
+
+    messageArea.innerText = "GAME OVER! ⌛";
+    messageArea.style.color = "#FF1493";
+
+    // Clear grid
+    if (currentGridIndex !== -1) {
+        gridCells[currentGridIndex].innerHTML = '';
+        currentGridIndex = -1;
+    }
+
+    finalScoreDisplay.innerText = score.toString().padStart(2, '0');
+    bestScoreDisplay.innerText = highScore.toString().padStart(2, '0');
+    gameOverOverlay.classList.remove('hidden');
+}
+
 // Event Listeners
 controlBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -154,13 +215,11 @@ function init() {
         if (audioCtx.state === 'suspended') {
             audioCtx.resume();
         }
-        startOverlay.classList.add('hidden');
-        updateTarget();
+        startGame();
+    });
 
-        // Update target every 2 seconds if not clicked
-        setInterval(() => {
-            updateTarget();
-        }, 2500);
+    restartBtn.addEventListener('click', () => {
+        startGame();
     });
 }
 
