@@ -155,6 +155,14 @@ function startTimer() {
         timeLeft--;
         timerDisplay.innerText = `${timeLeft}s`;
 
+        if (timeLeft <= 10) {
+            timerDisplay.style.color = "#FF1493";
+            timerDisplay.style.borderColor = "#FF1493";
+        } else {
+            timerDisplay.style.color = "#FFD700";
+            timerDisplay.style.borderColor = "rgba(255, 215, 0, 0.3)";
+        }
+
         if (timeLeft <= 0) {
             endGame();
         }
