@@ -58,13 +58,48 @@ function playSound(type) {
         oscillator.start(now);
         oscillator.stop(now + 0.2);
     } else if (type === 'error') {
-        oscillator.type = 'sawtooth';
-        oscillator.frequency.setValueAtTime(220, now);
-        oscillator.frequency.linearRampToValueAtTime(110, now + 0.3);
-        gainNode.gain.setValueAtTime(0.1, now);
-        gainNode.gain.linearRampToValueAtTime(0.01, now + 0.3);
-        oscillator.start(now);
-        oscillator.stop(now + 0.3);
+        // Water Splash Sound Synthesis
+        const bufferSize = audioCtx.sampleRate * 0.4;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+
+        // Generate White Noise
+        for (let i = 0; i < bufferSize; i++) {
+            data[i] = Math.random() * 2 - 1;
+        }
+
+        const noiseSource = audioCtx.createBufferSource();
+        noiseSource.buffer = buffer;
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(1200, now);
+        filter.frequency.exponentialRampToValueAtTime(400, now + 0.3);
+
+        noiseSource.connect(filter);
+        filter.connect(gainNode);
+
+        gainNode.gain.setValueAtTime(0, now);
+        gainNode.gain.linearRampToValueAtTime(0.2, now + 0.05);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+
+        noiseSource.start(now);
+        noiseSource.stop(now + 0.4);
+
+        // Also add a low "thump" for the splash impact
+        const thump = audioCtx.createOscillator();
+        thump.type = 'sine';
+        thump.frequency.setValueAtTime(150, now);
+        thump.frequency.exponentialRampToValueAtTime(60, now + 0.1);
+
+        const thumpGain = audioCtx.createGain();
+        thumpGain.gain.setValueAtTime(0.1, now);
+        thumpGain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+
+        thump.connect(thumpGain);
+        thumpGain.connect(audioCtx.destination);
+        thump.start(now);
+        thump.stop(now + 0.2);
     } else {
         // Pop sound for btn clicks
         oscillator.type = 'sine';
