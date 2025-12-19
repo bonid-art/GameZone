@@ -322,30 +322,18 @@ body {
     }
 }
 
-#game-timer {
+.timer-container {
     position: absolute;
     top: 60px;
     left: 20px;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    padding: 10px 15px;
-    border-radius: 15px;
-    font-size: 24px;
-    font-weight: 700;
-    color: #FFD700;
-    border: 2px solid rgba(255, 215, 0, 0.3);
     min-width: 80px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 150;
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
-#game-timer::before {
-    content: '⏱️';
-    font-size: 20px;
+#game-timer {
+    color: #FFD700;
 }
 
 .overlay h1 {

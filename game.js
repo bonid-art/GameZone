@@ -149,18 +149,19 @@ function updateScore() {
 
 function startTimer() {
     timeLeft = 30;
-    timerDisplay.innerText = `${timeLeft}s`;
+    timerDisplay.innerText = timeLeft;
 
     timerInterval = setInterval(() => {
         timeLeft--;
-        timerDisplay.innerText = `${timeLeft}s`;
+        timerDisplay.innerText = timeLeft;
 
+        const container = timerDisplay.parentElement;
         if (timeLeft <= 10) {
+            container.style.borderColor = "#FF1493";
             timerDisplay.style.color = "#FF1493";
-            timerDisplay.style.borderColor = "#FF1493";
         } else {
+            container.style.borderColor = "rgba(255, 255, 255, 0.2)";
             timerDisplay.style.color = "#FFD700";
-            timerDisplay.style.borderColor = "rgba(255, 215, 0, 0.3)";
         }
 
         if (timeLeft <= 0) {
